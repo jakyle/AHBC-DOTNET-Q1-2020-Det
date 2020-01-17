@@ -96,7 +96,117 @@ namespace Loops_and_conditionals
                     Console.WriteLine($"{i}. It's an odd number");
                 }
             }
-            
+
+            // Looping strings
+
+            //                    0123456789 10 11    
+            string awesomeWord = "awesomeWord";
+
+            char firstLetter = awesomeWord[0];
+
+
+
+            for (int i = 0; i < awesomeWord.Length; i++)
+            {
+                Console.WriteLine($"{i}. {awesomeWord[i] }");
+            }
+
+            var letterString = 'a'.ToString();
+
+
+            Console.WriteLine($"You have {CountVowels("sup")} vowels");
+            Console.WriteLine($"You have {CountVowels("Hello")} vowels");
+            Console.WriteLine($"You have {CountVowels("I'm a baby")} vowels");
+
+            // Switch case
+
+            char letter = 'a';
+
+            switch (letter)
+            {
+                case 'a':
+                    {
+                        Console.WriteLine("ayyyy");
+                        break;
+                    }
+                case 'b':
+                    {
+
+                        break;
+                    }
+                default: break;
+
+            }
+
+            // Terenary operator
+
+            string name = "James";
+            //string myOpinionOnTheAmountOfVowelsInYourName;
+            //if (CountVowels(name) > 4)
+            //{
+            //    myOpinionOnTheAmountOfVowelsInYourName = "Thats a lot of vowels";
+            //}
+            //else
+            //{
+            //    myOpinionOnTheAmountOfVowelsInYourName = "Thats a pretty moderate amount of vowels I would say";
+            //}
+
+            string myOpinionOnTheAmountOfVowelsInYourName = name.Length > 2
+                ? "thats a normal length for a name"
+                : "Yeah thats still pretty normal I guess";
+
+            int age = 15;
+            string bouncerGreeting = age > 21
+                ? "come on in good sir, heh."
+                : "get the fuck outta here kid";
+
+
+            // foreach loops
+
+            string word = "hello";
+
+            int numberOfVowels = 0;
+            int numberOfConstanants = 0;
+            foreach (char character in word)
+            {
+                switch (character)
+                {
+                    case 'a':
+                    case 'e':
+                    case 'i':
+                    case 'o':
+                    case 'u':
+                        numberOfVowels++;
+                        break;
+                    default:
+                        numberOfConstanants++;
+                        break;
+                }
+            }
+
+        }
+
+        static int CountVowels(string word)
+        {
+            int numberOfVowels = 0;
+            int numberOfConstanants = 0;
+            for (int i = 0; i < word.Length; i++)
+            {
+                switch (word[i])
+                {
+                    case 'a':
+                    case 'e':
+                    case 'i':
+                    case 'o':
+                    case 'u': 
+                        numberOfVowels++;
+                        break;
+                    default:
+                        numberOfConstanants++;
+                        break;
+                }
+            }
+            return numberOfVowels;
         }
 
         static void ExerciseSix()
