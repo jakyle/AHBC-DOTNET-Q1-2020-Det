@@ -49,6 +49,7 @@ namespace Collections
             number = 100;
 
             List<string> refExample = new List<string>();
+            List<int> numers = new List<int>();
 
             refExample.Add("James");
 
@@ -64,7 +65,19 @@ namespace Collections
 
             string name = null;
 
-            string upperCaseName = name.ToUpper();
+            // string upperCaseName = name.ToUpper();
+
+            WriteToConsole<int, string>(22, "sup");
+            WriteToConsole<bool, List<string>>(true, new List<string>());
+
+            List<List<List<List<List<List<List<List<string>>>>>>>> insanity = new List<List<List<List<List<List<List<List<string>>>>>>>>();
         }
+
+        static void WriteToConsole<T, U>(T message, U otherMessage)
+        {
+            Console.WriteLine(message);
+            Console.WriteLine(otherMessage);
+        }
+
     }
 }
