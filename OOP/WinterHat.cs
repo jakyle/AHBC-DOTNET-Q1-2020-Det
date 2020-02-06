@@ -6,19 +6,31 @@ namespace OOP
 {
     public class WinterHat
     {
+        
+        public WinterHat()
+        {
 
+        }
 
-        private string _color;
+        public WinterHat(string color, double size)
+        {
+            this._pigLatinColor = $"{color}way";
+            this.Size = size;
+        }
+
+        
+        private string _pigLatinColor;
         public string Color
         {
             get
             {
-                return _color;
+                return _pigLatinColor.Substring(_pigLatinColor.Length - 3);
             }
-
+            
             set
             {
-                _color = value;
+                var pigColor = $"{value}way";
+                _pigLatinColor = pigColor;
             }
         }
 

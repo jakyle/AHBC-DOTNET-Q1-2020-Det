@@ -6,13 +6,14 @@ namespace OOP
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Console.WriteLine("Hello World!", "sup");
 
-            WinterHat winterHat = new WinterHat();
+            WinterHat winterHat = new WinterHat("black", 2);
 
-            winterHat.Color = "black";
-            winterHat.Size = 2;
+            WinterHat emptyWinterHat = new WinterHat();
 
+            emptyWinterHat.Color = "White";
+           
             string color = winterHat.Color;
 
             // string thrownHat = winterHat.ThrowAHat();
@@ -21,6 +22,13 @@ namespace OOP
             Console.WriteLine(winterHat.Size);
 
             Console.ReadLine();
+
+
+            // Lab 2 exmple
+
+            var app = new RoomApp();
+            app.Run();
+
         }
     }
 }
