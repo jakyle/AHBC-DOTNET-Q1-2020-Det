@@ -14,6 +14,8 @@ namespace CarTionary
     public class SUV : CarBase
     {
         public bool IsASoccerMom { get; set; }
+        public double Mileage { get; set; }
+
     }
 
     public class Motorcycle : CarBase
