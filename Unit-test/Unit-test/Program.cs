@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 
-
-namespace CarTionary
+namespace Unit_test
 {
     class Program
     {
         static void Main(string[] args)
         {
-            CarApp.Run();
+            Console.WriteLine("Hello World!");
         }
     }
 }
