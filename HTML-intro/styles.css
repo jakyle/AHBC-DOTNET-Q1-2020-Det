@@ -1,0 +1,70 @@
+body {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    /* background: url('https://marketrealist.imgix.net/uploads/2020/03/Marijuana.jpeg?auto=compress%2Cformat&crop=top&fit=crop&h=385&ixlib=php-1.2.1&w=696&wpsize=td_1920x1080'); */
+}
+
+h1 {
+    color: blue;
+    text-align: center;
+}
+
+h1 {
+    color: red;
+}
+
+
+.first-list-item {
+    color: magenta;
+}
+
+.odd-lis
+    font-weight: 900;
+}
+
+
+#title {
+    font-size: 72px;
+    color: green;
+    text-align: center;
+}
+
+#box {
+    width: 200px;
+    height: 200px;
+
+    background-color: grey;
+
+    
+
+
+
+    padding: 10px;
+    border: 5px black dotted;
+    margin: 10px;
+
+    padding-top: 2px;   
+    margin-left: 30px;
+    border-bottom: 5px green solid;
+}
+
+
+
+
+#app {
+    display: flex;
+
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+
+    height: 100vh;
+    width: 100vw;
+}
+
+
+
+/* p {
+    color: pink;
+} */
