@@ -97,3 +97,6 @@ for (const cat of cats) {
 cats.forEach((cat, i) => {
     console.log(cat);
 })
+
+
+
