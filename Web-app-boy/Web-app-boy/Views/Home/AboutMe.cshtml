@@ -1,0 +1,13 @@
+﻿@model AboutMeViewModel
+
+<h1>Hi my name is!:@Model.Name</h1>
+
+
+<h2>Description: @Model.Description </h2>
+
+<ul>
+    @foreach (var hobby in Model.Hobbies)
+    {
+        <li>@hobby</li>
+    }
+</ul>
