@@ -1,0 +1,25 @@
+﻿@model Startup_Forms.Models.ContactViewModel
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Contact</title>
+</head>
+<body>
+
+    <h2>Name: @Model.Name</h2>
+    <h2>Email Address: @Model.EmailAddress</h2>
+    <h2>Phone Number: @Model.PhoneNumber</h2>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+</body>
+</html>
