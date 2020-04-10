@@ -8,12 +8,6 @@ namespace Startup_Forms.Services
         {
             model.EmailAddress = model.EmailAddress.ToUpper();
             model.Name = model.Name.ToUpper();
-
-            CarBase car = new Sedan();
-
-            car = new Truck();
-
-            car.Drive();
         }
 
         public void CapsEverOtherLetter(ContactViewModel model)

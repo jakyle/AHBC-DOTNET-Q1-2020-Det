@@ -1,7 +1,6 @@
 ﻿
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Startup_Forms.Models;
 using Startup_Forms.Services;
 
@@ -9,18 +8,11 @@ namespace Startup_Forms.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IPaymentValidator _paymentValidator;
-        private readonly ILogger<HomeController> _logger;
-        private readonly IAllCapsContactService _allCapsContactService;
+        private readonly IHomeFacade _homeFacade;
 
-        public HomeController(
-            ILogger<HomeController> logger, 
-            IPaymentValidator paymentValidator,
-            IAllCapsContactService allCapsContactService)
+        public HomeController(IHomeFacade homeFacade)
         {
-            _paymentValidator = paymentValidator;
-            _logger = logger;
-            _allCapsContactService = allCapsContactService;
+            _homeFacade = homeFacade;
         }
 
         public IActionResult Index()
@@ -41,8 +33,14 @@ namespace Startup_Forms.Controllers
 
         public IActionResult ContactDetails(ContactViewModel model)
         {
-            _allCapsContactService.CapsAllProperties(model);
-            return View(model);
+            if (!ModelState.IsValid)
+            {
+                model.ErrorMessage = "This data is no good, try again user.... heh";
+                return View("Contact", model);
+            }
+
+            var viewModel = _homeFacade.Map(model);
+            return View(viewModel);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
