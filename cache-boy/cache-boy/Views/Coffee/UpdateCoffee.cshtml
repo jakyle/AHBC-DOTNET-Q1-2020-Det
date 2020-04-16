@@ -1,0 +1,14 @@
+﻿@model cache_boy.Models.Coffee.UpdateCoffeeViewModel
+
+<h1>Changing name for @Model.OldName</h1>
+
+<form asp-action="UpdatedCoffee" asp-controller="Coffee">
+    <div class="form-group">
+        <label asp-for="NewName"></label>
+        <input class="form-control" placeholder="Enter new name" asp-for="NewName" />
+    </div>
+
+    <input asp-for="OldName" type="hidden" />
+
+    <button type="submit" class="btn btn-primary">Change Name</button>
+</form>

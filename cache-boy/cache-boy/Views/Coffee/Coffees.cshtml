@@ -4,18 +4,21 @@
     <h2>Check out THESE Coffees!</h2>
 </div>
 
-<ul>
+<ul class="list-group">
     @foreach (var coffee in Model.Coffees)
     {
-        <li>
+        <li class="list-group-item">
             <div>
                 <h4>@coffee</h4>
-                <a 
-                   asp-action="DeleteCoffee" 
-                   asp-controller="Coffee"
-                   asp-route-name="@coffee"
-                  >
+                <a asp-controller="Coffee"
+                   asp-action="DeleteCoffee"
+                   asp-route-coffeeName="@coffee">
                     Delete
+                </a>
+                <a asp-controller="Coffee"
+                   asp-action="UpdateCoffee"
+                   asp-route-coffeeName="@coffee">
+                    Change Name
                 </a>
             </div>
         </li>
