@@ -1,119 +1,95 @@
-﻿using Microsoft.Extensions.Caching.Memory;
+﻿using cache_boy.Models.Coffee.Repository;
+using Dapper;
+using Microsoft.Extensions.Caching.Memory;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 
 namespace cache_boy.Service
 {
     public class CoffeeRepository : ICoffeeRepository
     {
-        const string coffeeKey = "coffees";
-        private readonly IMemoryCache _memoryCache;
+        private string _connectionString = "Data Source = DESKTOP-JGEHS55; Initial Catalog = CoffeeShop; Integrated Security=True"; // WINDDOWS USER
+        // private string _connectionString = "Server=myServerAddress;Database=myDataBase;User Id = myUsername; Password=myPassword;  MAC USER"
 
-        public CoffeeRepository(IMemoryCache memoryCache)
-        {
-            _memoryCache = memoryCache;
-        }
+        //public void AddCoffee(string coffeeName)
+        //{
+        //    Coffees.Add(coffeeName);
+        //}
 
-        private IList<string> Coffees
+        //public void DeleteCoffee(string coffeeName)
+        //{
+        //    Coffees.Remove(coffeeName);
+        //}
+
+        public IEnumerable<CoffeeDBO> SelectAllCoffee()
         {
-            get
+            const string queryString = "Select * from [dbo].Coffee";
+
+            using (var connection = new SqlConnection(_connectionString))
             {
-                IList<string> coffees;
-                if (!_memoryCache.TryGetValue(coffeeKey, out coffees))
-                {
-                    coffees = GetInitialCoffees();
-                    _memoryCache.Set(coffeeKey, coffees);
-                }
+                IEnumerable<CoffeeDBO> orderDetail = connection.Query<CoffeeDBO>(queryString);
 
-                return coffees;
+                return orderDetail;
             }
         }
 
-        private static IList<string> GetInitialCoffees()
-        {
-            var coffees = new List<string>()
-            {
-                "Cafe Con Leche",  // {"Cafe", "Con", "Leche"}
-                "Caramel Machiato",
-                "Yummy boys coffee",  // "not so yummy boys"
-                "Vanilla Late",
-                "Hot Chocolate, Darion Special"
-            };
+        //public void UpdateCoffee(string newName, string oldName)
+        //{
+        //    var oldNameIndex = Coffees.IndexOf(oldName);
+        //    Coffees[oldNameIndex] = newName;
+        //}
 
-            return coffees;
-        }
+        //private IList<string> GetCoffessAllCaps()
+        //{
+        //    // Looping way of doing the thing
+        //    var coffeesAllCaps = new List<string>();
+        //    foreach (var coffee in Coffees)
+        //    {
+        //        var allCapsCoffee = coffee.ToUpper();
 
-        public void AddCoffee(string coffeeName)
-        {
-            Coffees.Add(coffeeName);
-        }
+        //        coffeesAllCaps.Add(allCapsCoffee);
+        //    }
 
-        public void DeleteCoffee(string coffeeName)
-        {
-            Coffees.Remove(coffeeName);
-        }
+        //    // the Linq way
+        //    return Coffees
+        //        .Select(coffee => coffee.ToUpper())
+        //        .ToList();
+        //}
 
-        public ICollection<string> GetAllCoffee()
-        {
-            return GetThreeWordCoffesAllCaps();
-        }
-
-        public void UpdateCoffee(string newName, string oldName)
-        {
-            var oldNameIndex = Coffees.IndexOf(oldName);
-            Coffees[oldNameIndex] = newName;
-        }
-
-        private IList<string> GetCoffessAllCaps()
-        {
-            // Looping way of doing the thing
-            var coffeesAllCaps = new List<string>();
-            foreach (var coffee in Coffees)
-            {
-                var allCapsCoffee = coffee.ToUpper();
-
-                coffeesAllCaps.Add(allCapsCoffee);
-            }
-
-            // the Linq way
-            return Coffees
-                .Select(coffee => coffee.ToUpper())
-                .ToList();
-        }
-
-        private IList<string> GetThreeWordCoffees()
-        {
-            var coffeesWithOnlyThreeWords = new List<string>();
-            foreach (var coffee in Coffees)
-            {
-                if (coffee.Split(" ").Length <= 3)
-                {
-                    coffeesWithOnlyThreeWords.Add(coffee);
-                }
-            }
+        //private IList<string> GetThreeWordCoffees()
+        //{
+        //    var coffeesWithOnlyThreeWords = new List<string>();
+        //    foreach (var coffee in Coffees)
+        //    {
+        //        if (coffee.Split(" ").Length <= 3)
+        //        {
+        //            coffeesWithOnlyThreeWords.Add(coffee);
+        //        }
+        //    }
 
 
-            var coffeesWithOnlyThreeWordsLinqEdition = Coffees
-                .Where(coffee => {
-                    return coffee.Split(" ").Length <= 3;
-                 })
-                .ToList();
+        //    var coffeesWithOnlyThreeWordsLinqEdition = Coffees
+        //        .Where(coffee => {
+        //            return coffee.Split(" ").Length <= 3;
+        //         })
+        //        .ToList();
 
-            return coffeesWithOnlyThreeWordsLinqEdition;
-        }
+        //    return coffeesWithOnlyThreeWordsLinqEdition;
+        //}
 
-        private IList<string> GetThreeWordCoffesAllCaps()
-        {
+        //private IList<string> GetThreeWordCoffesAllCaps()
+        //{
 
-            var name = "Darion".Select(letter => letter + 1).ToString();
+        //    var name = "Darion".Select(letter => letter + 1).ToString();
 
-            var coffeesWithOnlyThreeWordsLinqEdition = Coffees
-                .Where(coffee => coffee.Split(" ").Length <= 3)
-                .Select(coffee => coffee.ToUpper())
-                .ToList();
+        //    var coffeesWithOnlyThreeWordsLinqEdition = Coffees
+        //        .Where(coffee => coffee.Split(" ").Length <= 3)
+        //        .Select(coffee => coffee.ToUpper())
+        //        .ToList();
 
-            return coffeesWithOnlyThreeWordsLinqEdition;
-        }
+        //    return coffeesWithOnlyThreeWordsLinqEdition;
+        //}
 
 
     }
