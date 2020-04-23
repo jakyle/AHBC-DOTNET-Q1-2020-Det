@@ -1,0 +1,10 @@
+﻿@model AgeCheckViewModel
+
+<form asp-controller="Home" asp-action="AgeGateKeeper">
+    <div>
+        <label asp-for="Age"></label>
+        <input asp-for="Age"/>
+    </div>
+
+    <input type="submit" value="I'm this old!"/>
+</form>

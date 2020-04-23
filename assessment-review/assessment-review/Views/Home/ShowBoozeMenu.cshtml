@@ -1,0 +1,12 @@
+﻿@model ShowBoozeMenuViewModel
+
+
+<ul>
+    @foreach (var item in Model.Items)
+    {
+    <li>
+        <h4>@item.Name</h4>
+        <h4>@item.Price</h4>
+    </li>
+    }
+</ul>

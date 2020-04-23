@@ -34,6 +34,25 @@ namespace cache_boy.Service
             }
         }
 
+        public bool InsertIntoCoffee(CoffeeDBO model)
+        {
+            var queryString = @$"INSERT INTO Coffee (Name, Price, Description) 
+                                VALUES(@{nameof(CoffeeDBO.Name)}, @{nameof(CoffeeDBO.Price)}, @{nameof(CoffeeDBO.Description)});";
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    var orderDetail = connection.Execute(queryString, model);
+                    return true;
+                } 
+                catch
+                {
+                    return false;
+                }
+            }
+        }
+
         //public void UpdateCoffee(string newName, string oldName)
         //{
         //    var oldNameIndex = Coffees.IndexOf(oldName);
