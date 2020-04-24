@@ -10,7 +10,9 @@ namespace cache_boy.Service
     {
         //void AddCoffee(string coffeeName);
         //void DeleteCoffee(string coffeeName);
-        //void UpdateCoffee(string newName, string oldName);
+        //void UpdateCoffee(string newName, string oldNam);
+
+        bool InsertIntoCoffee(CoffeeDBO model);
         IEnumerable<CoffeeDBO> SelectAllCoffee();
     }
 }

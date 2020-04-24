@@ -3,10 +3,22 @@
 <form asp-action="AddedCoffee" asp-controller="Coffee">
 
     <div>
-        <label asp-for="Name"></label>
-        <input asp-for="Name"/>
+        <div>
+            <label asp-for="Name"></label>
+            <input asp-for="Name" />
+        </div>
 
-        <input type="submit" value="Add Coffee!"/>
+        <div>
+            <label asp-for="Price"></label>
+            <input asp-for="Price" />
+        </div>
+
+        <div>
+            <label asp-for="Description"></label>
+            <input asp-for="Description" />
+        </div>
+
+        <input type="submit" value="Add Coffee!" />
     </div>
 
 </form>

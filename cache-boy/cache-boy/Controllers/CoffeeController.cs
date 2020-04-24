@@ -2,6 +2,7 @@
 using cache_boy.Models.Coffee;
 using cache_boy.Service;
 using System.Linq;
+using cache_boy.Models.Coffee.Repository;
 
 namespace cache_boy.Controllers
 {
@@ -29,11 +30,17 @@ namespace cache_boy.Controllers
             return View(model);
         }
 
-        //public IActionResult AddedCoffee(AddCoffeeViewModel postModel)
-        //{
-        //    _coffeeRepository.AddCoffee(postModel.Name);
-        //    return RedirectToAction(nameof(Coffees));
-        //}
+        public IActionResult AddedCoffee(AddCoffeeViewModel postModel)
+        {
+            var dboCoffee = new CoffeeDBO();
+            dboCoffee.Name = postModel.Name;
+            dboCoffee.Price = postModel.Price;
+            dboCoffee.Description = postModel.Description;
+
+            _coffeeRepository.InsertIntoCoffee(dboCoffee);
+            
+            return RedirectToAction(nameof(Coffees));
+        }
 
         //public IActionResult DeleteCoffee(string coffeeName) // Mocha-Latte   --> https://localhost:5001/Coffee/DeleteCoffee?coffeeName=Cafe Con Leche
         //{
