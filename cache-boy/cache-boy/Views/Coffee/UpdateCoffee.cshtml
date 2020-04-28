@@ -8,7 +8,17 @@
         <input class="form-control" placeholder="Enter new name" asp-for="NewName" />
     </div>
 
-    <input asp-for="OldName" type="hidden" />
+    <div class="form-group">
+        <label asp-for="NewDescription"></label>
+        <input class="form-control" placeholder="Enter new Description" asp-for="NewDescription" />
+    </div>
 
-    <button type="submit" class="btn btn-primary">Change Name</button>
+    <div class="form-group">
+        <label asp-for="NewPrice"></label>
+        <input class="form-control" placeholder="Enter new Price" asp-for="NewPrice" />
+    </div>
+
+    <input asp-for="ID" type="hidden" />
+
+    <button type="submit" class="btn btn-primary">Update Coffee</button>
 </form>

@@ -3,6 +3,7 @@ using cache_boy.Models.Coffee;
 using cache_boy.Service;
 using System.Linq;
 using cache_boy.Models.Coffee.Repository;
+using System.Collections.Generic;
 
 namespace cache_boy.Controllers
 {
@@ -18,11 +19,17 @@ namespace cache_boy.Controllers
         public IActionResult Coffees()
         {
             var model = new CoffeesViewModel();
-            var coffeesDBO = _coffeeRepository.SelectAllCoffee();
-            model.Coffees = coffeesDBO.Select(coffeeDBO => coffeeDBO.Name).ToList();
+            var CoffeeDBOList = _coffeeRepository.SelectAllCoffee();
+
+            model.Coffees = CoffeeDBOList
+                .Select(coffeeDBO => new CoffeeNameAndID() { Name = coffeeDBO.Name, ID = coffeeDBO.ID })
+                .ToList();
 
             return View(model);
         }
+
+
+
 
         public IActionResult AddCoffee()
         {
@@ -42,26 +49,44 @@ namespace cache_boy.Controllers
             return RedirectToAction(nameof(Coffees));
         }
 
-        //public IActionResult DeleteCoffee(string coffeeName) // Mocha-Latte   --> https://localhost:5001/Coffee/DeleteCoffee?coffeeName=Cafe Con Leche
-        //{
-        //    _coffeeRepository.DeleteCoffee(coffeeName);
-        //    return RedirectToAction(nameof(Coffees));
-        //}
+        public IActionResult DeleteCoffee(int coffeeId)
+        {
+            _coffeeRepository.DeleteSelectedCoffee(coffeeId);
+            return RedirectToAction(nameof(Coffees));
+        }
 
-        //public IActionResult UpdateCoffee(string coffeeName)
-        //{
-        //    var model = new UpdateCoffeeViewModel();
-        //    model.NewName = string.Empty;
-        //    model.OldName = coffeeName;
+        public IActionResult UpdateCoffee(int coffeeID)
+        {
+            var model = new UpdateCoffeeViewModel();
 
-        //    return View(model);
-        //}
+            var currentCoffee = _coffeeRepository.SelectOneCoffee(coffeeID);
 
-        //public IActionResult UpdatedCoffee(UpdateCoffeeViewModel model) 
-        //{
-        //    _coffeeRepository.UpdateCoffee(model.NewName, model.OldName);
 
-        //    return RedirectToAction(nameof(Coffees));
-        //}
+            model.NewName = string.Empty;
+            model.OldName = currentCoffee.Name;
+
+            model.NewDescription = string.Empty;
+            model.OldDescription = currentCoffee.Description;
+
+            model.NewPrice = default(int);
+            model.OldPrice = currentCoffee.Price;
+
+            model.ID = coffeeID;
+
+            return View(model);
+        }
+
+        public IActionResult UpdatedCoffee(UpdateCoffeeViewModel model)
+        {
+            var dboCoffee = new CoffeeDBO();
+            dboCoffee.Name = model.NewName;
+            dboCoffee.Price = model.NewPrice;
+            dboCoffee.Description = model.NewDescription;
+            dboCoffee.ID = model.ID;
+
+            _coffeeRepository.UpdateSelectedCoffee(dboCoffee);
+
+            return RedirectToAction(nameof(Coffees));
+        }
     }
 }

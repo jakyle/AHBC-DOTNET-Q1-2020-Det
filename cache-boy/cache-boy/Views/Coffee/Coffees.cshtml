@@ -9,16 +9,16 @@
     {
         <li class="list-group-item">
             <div>
-                <h4>@coffee</h4>
+                <h4>@coffee.Name</h4>
                 <a asp-controller="Coffee"
                    asp-action="DeleteCoffee"
-                   asp-route-coffeeName="@coffee">
+                   asp-route-coffeeID="@coffee.ID">
                     Delete
                 </a>
                 <a asp-controller="Coffee"
                    asp-action="UpdateCoffee"
-                   asp-route-coffeeName="@coffee">
-                    Change Name
+                   asp-route-coffeeID="@coffee.ID">
+                    Edit
                 </a>
             </div>
         </li>

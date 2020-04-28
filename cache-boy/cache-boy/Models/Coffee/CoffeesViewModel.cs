@@ -7,6 +7,6 @@ namespace cache_boy.Models.Coffee
 {
     public class CoffeesViewModel
     {
-        public IEnumerable<string> Coffees {get; set;}
+        public IEnumerable<CoffeeNameAndID> Coffees {get; set;}
     }
 }

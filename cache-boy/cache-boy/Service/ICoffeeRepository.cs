@@ -14,5 +14,8 @@ namespace cache_boy.Service
 
         bool InsertIntoCoffee(CoffeeDBO model);
         IEnumerable<CoffeeDBO> SelectAllCoffee();
+        bool UpdateSelectedCoffee(CoffeeDBO model);
+        CoffeeDBO SelectOneCoffee(int ID);
+        bool DeleteSelectedCoffee(int ID);
     }
 }

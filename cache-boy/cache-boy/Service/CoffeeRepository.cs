@@ -11,17 +11,6 @@ namespace cache_boy.Service
     {
         private string _connectionString = "Data Source = DESKTOP-JGEHS55; Initial Catalog = CoffeeShop; Integrated Security=True"; // WINDDOWS USER
         // private string _connectionString = "Server=myServerAddress;Database=myDataBase;User Id = myUsername; Password=myPassword;  MAC USER"
-
-        //public void AddCoffee(string coffeeName)
-        //{
-        //    Coffees.Add(coffeeName);
-        //}
-
-        //public void DeleteCoffee(string coffeeName)
-        //{
-        //    Coffees.Remove(coffeeName);
-        //}
-
         public IEnumerable<CoffeeDBO> SelectAllCoffee()
         {
             const string queryString = "Select * from [dbo].Coffee";
@@ -53,63 +42,61 @@ namespace cache_boy.Service
             }
         }
 
-        //public void UpdateCoffee(string newName, string oldName)
-        //{
-        //    var oldNameIndex = Coffees.IndexOf(oldName);
-        //    Coffees[oldNameIndex] = newName;
-        //}
+        public bool UpdateSelectedCoffee(CoffeeDBO model)
+        {
+            var queryString = @$"UPDATE Coffee
+                                SET 
+	                                Name = @Name, 
+	                                Description = @Description, 
+	                                Price = @Price
+                                WHERE ID = @ID; ";
 
-        //private IList<string> GetCoffessAllCaps()
-        //{
-        //    // Looping way of doing the thing
-        //    var coffeesAllCaps = new List<string>();
-        //    foreach (var coffee in Coffees)
-        //    {
-        //        var allCapsCoffee = coffee.ToUpper();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    var orderDetail = connection.Execute(queryString, model);
+                    return true;
+                }
+                catch
+                {
+                    return false;
+                }
+            }
+        }
 
-        //        coffeesAllCaps.Add(allCapsCoffee);
-        //    }
+        public CoffeeDBO SelectOneCoffee(int ID)
+        {
+            var query = @"Select * From Coffee
+                         WHERE ID = @ID";
 
-        //    // the Linq way
-        //    return Coffees
-        //        .Select(coffee => coffee.ToUpper())
-        //        .ToList();
-        //}
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                var orderDetail = connection.Query<CoffeeDBO>(query, new { ID }).FirstOrDefault();
 
-        //private IList<string> GetThreeWordCoffees()
-        //{
-        //    var coffeesWithOnlyThreeWords = new List<string>();
-        //    foreach (var coffee in Coffees)
-        //    {
-        //        if (coffee.Split(" ").Length <= 3)
-        //        {
-        //            coffeesWithOnlyThreeWords.Add(coffee);
-        //        }
-        //    }
+                return orderDetail;
+            }
+        }
+
+        public bool DeleteSelectedCoffee(int ID)
+        {
+            var query = @"DELETE FROM Coffee WHERE ID = @ID;";
 
 
-        //    var coffeesWithOnlyThreeWordsLinqEdition = Coffees
-        //        .Where(coffee => {
-        //            return coffee.Split(" ").Length <= 3;
-        //         })
-        //        .ToList();
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                try
+                {
+                    var orderDetail = connection.Execute(query, new { ID });
+                    return true;
+                }
+                catch
+                {
 
-        //    return coffeesWithOnlyThreeWordsLinqEdition;
-        //}
-
-        //private IList<string> GetThreeWordCoffesAllCaps()
-        //{
-
-        //    var name = "Darion".Select(letter => letter + 1).ToString();
-
-        //    var coffeesWithOnlyThreeWordsLinqEdition = Coffees
-        //        .Where(coffee => coffee.Split(" ").Length <= 3)
-        //        .Select(coffee => coffee.ToUpper())
-        //        .ToList();
-
-        //    return coffeesWithOnlyThreeWordsLinqEdition;
-        //}
-
+                    return false;
+                }
+            }
+        }
 
     }
 }
