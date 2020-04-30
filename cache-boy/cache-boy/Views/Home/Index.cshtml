@@ -1,4 +1,7 @@
-﻿@model IndexViewModel
+﻿@using Microsoft.Extensions.Options;
+
+@model IndexViewModel
+@inject IOptions<DatabaseConfig> config
 
 @{
     ViewData["Title"] = "Home Page";
@@ -10,8 +13,10 @@
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
 
+<h1>Connection string: @config.Value.ConnectionString</h1>
 
-@if(Model.Message != null && Model.Message.Length > 0)
+
+@if (Model.Message != null && Model.Message.Length > 0)
 {
     <h3>@Model.Message</h3>
 }

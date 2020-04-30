@@ -25,6 +25,7 @@ namespace cache_boy
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<ICoffeeRepository, CoffeeRepository>();
+            services.Configure<DatabaseConfig>(Configuration.GetSection("Database"));
             services.AddControllersWithViews();
         }
 

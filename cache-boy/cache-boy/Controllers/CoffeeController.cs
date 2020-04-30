@@ -4,6 +4,7 @@ using cache_boy.Service;
 using System.Linq;
 using cache_boy.Models.Coffee.Repository;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace cache_boy.Controllers
 {
@@ -16,10 +17,11 @@ namespace cache_boy.Controllers
             _coffeeRepository = coffeeRepository;
         }
 
-        public IActionResult Coffees()
+        [HttpGet]
+        public async Task<IActionResult> Coffees()
         {
             var model = new CoffeesViewModel();
-            var CoffeeDBOList = _coffeeRepository.SelectAllCoffee();
+            var CoffeeDBOList = await _coffeeRepository.SelectAllCoffee();
 
             model.Coffees = CoffeeDBOList
                 .Select(coffeeDBO => new CoffeeNameAndID() { Name = coffeeDBO.Name, ID = coffeeDBO.ID })
@@ -28,16 +30,15 @@ namespace cache_boy.Controllers
             return View(model);
         }
 
-
-
-
+        [HttpGet]
         public IActionResult AddCoffee()
         {
             var model = new AddCoffeeViewModel();
             return View(model);
         }
 
-        public IActionResult AddedCoffee(AddCoffeeViewModel postModel)
+        [HttpPost]
+        public IActionResult AddCoffee(AddCoffeeViewModel postModel)
         {
             var dboCoffee = new CoffeeDBO();
             dboCoffee.Name = postModel.Name;
@@ -55,6 +56,7 @@ namespace cache_boy.Controllers
             return RedirectToAction(nameof(Coffees));
         }
 
+        [HttpGet]
         public IActionResult UpdateCoffee(int coffeeID)
         {
             var model = new UpdateCoffeeViewModel();
@@ -76,7 +78,8 @@ namespace cache_boy.Controllers
             return View(model);
         }
 
-        public IActionResult UpdatedCoffee(UpdateCoffeeViewModel model)
+        [HttpPost]
+        public IActionResult UpdateCoffee(UpdateCoffeeViewModel model)
         {
             var dboCoffee = new CoffeeDBO();
             dboCoffee.Name = model.NewName;

@@ -1,23 +1,31 @@
 ﻿using cache_boy.Models.Coffee.Repository;
 using Dapper;
-using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace cache_boy.Service
 {
     public class CoffeeRepository : ICoffeeRepository
     {
-        private string _connectionString = "Data Source = DESKTOP-JGEHS55; Initial Catalog = CoffeeShop; Integrated Security=True"; // WINDDOWS USER
+        private string _connectionString; // WINDDOWS USER
         // private string _connectionString = "Server=myServerAddress;Database=myDataBase;User Id = myUsername; Password=myPassword;  MAC USER"
-        public IEnumerable<CoffeeDBO> SelectAllCoffee()
+
+
+        public CoffeeRepository(IOptions<DatabaseConfig> config)
+        {
+            _connectionString = config.Value.ConnectionString;
+        }
+
+        public async Task<IEnumerable<CoffeeDBO>> SelectAllCoffee()
         {
             const string queryString = "Select * from [dbo].Coffee";
 
             using (var connection = new SqlConnection(_connectionString))
             {
-                IEnumerable<CoffeeDBO> orderDetail = connection.Query<CoffeeDBO>(queryString);
+                IEnumerable<CoffeeDBO> orderDetail = await connection.QueryAsync<CoffeeDBO>(queryString);
 
                 return orderDetail;
             }
@@ -32,7 +40,7 @@ namespace cache_boy.Service
             {
                 try
                 {
-                    var orderDetail = connection.Execute(queryString, model);
+                    var orderDetail = connection.ExecuteAsync(queryString, model);
                     return true;
                 } 
                 catch

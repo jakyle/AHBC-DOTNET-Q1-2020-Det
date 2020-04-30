@@ -13,7 +13,7 @@ namespace cache_boy.Service
         //void UpdateCoffee(string newName, string oldNam);
 
         bool InsertIntoCoffee(CoffeeDBO model);
-        IEnumerable<CoffeeDBO> SelectAllCoffee();
+        Task<IEnumerable<CoffeeDBO>> SelectAllCoffee();
         bool UpdateSelectedCoffee(CoffeeDBO model);
         CoffeeDBO SelectOneCoffee(int ID);
         bool DeleteSelectedCoffee(int ID);
