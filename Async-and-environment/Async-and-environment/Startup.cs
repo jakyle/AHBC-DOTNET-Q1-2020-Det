@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using cache_boy.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -10,12 +9,20 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace cache_boy
+namespace Async_and_environment
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostEnvironment env)
         {
+            //var builder = new ConfigurationBuilder()
+            //    .SetBasePath(env.ContentRootPath)
+            //    .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+            //    .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true, reloadOnChange: true);
+
+            //// builder.AddEnvironmentVariables();
+            //Configuration = builder.Build();
+
             Configuration = configuration;
         }
 
@@ -24,11 +31,9 @@ namespace cache_boy
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSingleton<ICoffeeRepository, CoffeeRepository>();
+            var values = Configuration.GetSection("AHBCProperties.IsAProperty");
 
-            var databaseConfigSection = Configuration.GetSection("Database");
 
-            services.Configure<DatabaseConfig>(databaseConfigSection);
             services.AddControllersWithViews();
         }
 
