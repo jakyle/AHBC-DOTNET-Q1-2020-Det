@@ -64,13 +64,18 @@ namespace api.Controllers
 
             [HttpGet]
             [Route("{id}")]
-            public Todo GetTodo(int id)
+            public IActionResult GetTodo(int id)
             {
                 var todo = _todos
                     .Where(todo => todo.ID == id)
                     .FirstOrDefault();
 
-                return todo;
+                if (todo == null)
+                {
+                   return NotFound("Todo item does not exist!");
+                }
+
+                return Ok(todo);
             }
 
             [HttpPost]
