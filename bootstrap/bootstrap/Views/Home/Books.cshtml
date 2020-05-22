@@ -1,0 +1,40 @@
+﻿@model BooksViewModel
+
+<link rel="stylesheet" href="~/css/books.css" />
+
+<div>
+    <ul class="list-group" id="book-list">
+        @foreach (var book in Model.Books)
+        {
+            <li class="list-group-item">
+                <div class="card">
+                    <h2 class="card-title card-header">Name: @book.Name</h2>
+                    <h2 class="card-title">Authors:</h2>
+                    <div class="card-body">
+                        <ul class="list-group list-group-flush">
+                            @foreach (var author in book.Authors)
+                            {
+                                <li>@author</li>
+                            }
+                        </ul>
+                        <p class="card-text">Number of pages: @book.NumberOfPages</p>
+                        <p class="card-text">Released: @book.Released.ToLocalTime().ToString()</p>
+                    </div>
+
+                    <button class="btn btn-info view-character-btn">View Characters</button>
+                    <div class="card-body hide-characters" >
+                        <ul class="list-group list-group-flush character-list">
+                            @foreach (var character in book.Characters)
+                            {
+                                <li class="get-character-btn">@character</li>
+                            }
+                        </ul>
+                    </div>
+
+                </div>
+            </li>
+        }
+    </ul>
+</div>
+
+<script src="~/js/books.js"></script>

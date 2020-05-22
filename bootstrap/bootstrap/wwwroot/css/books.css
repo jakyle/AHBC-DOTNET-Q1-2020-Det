@@ -1,0 +1,7 @@
+﻿.hide-characters {
+    display: none;
+}
+
+.get-character-btn {
+    cursor: pointer;
+}
